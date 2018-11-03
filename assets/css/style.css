@@ -16,3 +16,7 @@ body {
     background: #cac8aa;
     opacity: 0.7;
 }
+
+#submitButton {
+    margin: 1%;
+}

@@ -1,5 +1,4 @@
-var questions = [
-    {
+var questions = [{
         question: "Which dinosaur was the first to ever be discovered?",
 
         answers: {
@@ -45,21 +44,83 @@ var questions = [
     },
 ];
 
+var answerTime;
+var i = 0;
+var correct = 0;
+var incorrect = 0;
 
-function nextQuestion(i) {
-        var dispQuestion = $("#question").html(questions[i].question);
-        var answerA = $("#answer-a").html("<input type='radio' id='a' /> <label for='a'>" + questions[i].answers.a + "</label>");
-        var answerB = $("#answer-b").html("<input type='radio' id='b' /> <label for='b'>" + questions[i].answers.b + "</label>");
-        var answerC = $("#answer-c").html("<input type='radio' id='c' /> <label for='c'>" + questions[i].answers.c + "</label>");dispQuestion;
-        answerA;
-        answerB;
-        answerC;
-    }
-  
 
-$(document).ready( function(){
-    for (let i = 0; i < questions.length; i++) {
-        setTimeout(nextQuestion(i), 3000);
+$(document).ready(function () {
 
-    }
+    console.log("Ready func");
+    
+    $("#question").html("Click Start to begin!");
+    $("#startButton").click(startQuiz);
 });
+
+
+function nextQuestion() {
+    i++;
+
+    // console.log(i);
+
+    setTimeout(displayQuestion(i), 1000);
+
+}
+
+function displayQuestion(i) {
+
+    console.log("displayQuestion");
+
+    if (i == questions.length) {
+        endGame(correct, incorrect);
+    }
+    
+    $("#question").html(questions[i].question);
+    $("#answer-a").html("<input class='choice' type='radio' name='choice' id='a' /> <label for='a'>" + questions[i].answers.a + "</label>");
+    $("#answer-b").html("<input class='choice' type='radio' name='choice' id='b' /> <label for='b'>" + questions[i].answers.b + "</label>");
+    $("#answer-c").html("<input class='choice' type='radio' name='choice' id='c' /> <label for='c'>" + questions[i].answers.c + "</label>");
+    
+    $(".choice").click(function() {
+        choice = $(this).attr("id");
+        // console.log(choice);
+        if (choice == questions[i].correctAnswer) {
+            correct++;
+            // console.log("right: " + correct);
+        } else {
+            incorrect++;
+            // console.log("wrong: " + incorrect);    
+        }
+    });
+
+
+}
+
+function startQuiz() {
+
+    console.log("startQuiz");
+    
+    displayQuestion(i);
+    
+    answerTime = setInterval(nextQuestion, 3000);
+}
+
+function endGame(arr1, arr2) {
+
+    console.log("ending");
+        
+    if (arr1 > arr2) {
+        $("#question").html("<h1>You Won!</p>");
+        $("#answer-a").html("<b>Correct Answers:</b> " + correct);
+        $("#answer-b").html("<b>Incorrect Answers:</b> " + incorrect);
+        $("#answer-c").html("");
+    } else {
+        $("#question").html("<h1>You Lost...</p>");
+        $("#answer-a").html("<b>Correct Answers:</b> " + correct);
+        $("#answer-b").html("<b>Incorrect Answers:</b> " + incorrect);
+        $("#answer-c").html("");
+    }
+
+    clearInterval(answerTime);
+
+}
