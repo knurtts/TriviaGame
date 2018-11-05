@@ -164,6 +164,8 @@ function displayQuestion(i) {
             $("#answer-b").html("");
             $("#answer-c").html("");
 
+            $("#new-butt").hide();
+
             setTimeout(() => {
                 nextQuestion();
             }, 2000);
@@ -174,6 +176,8 @@ function displayQuestion(i) {
             $("#answer-a").html("<h1>Incorrect!</h1>");
             $("#answer-b").html("");
             $("#answer-c").html("");
+            $("#new-butt").hide();
+
 
             setTimeout(() => {
                 nextQuestion();
