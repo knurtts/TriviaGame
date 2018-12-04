@@ -1,4 +1,5 @@
 # TriviaGame
+Deployed version: https://rand0819.github.io/TriviaGame/
 - - -
 * This is a trivia game where you must try to answer all the questions correctly.
 * If you get more questions correct than incorrect, you win!
